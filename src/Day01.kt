@@ -1,4 +1,3 @@
-import java.lang.Character.isDigit
 import java.lang.RuntimeException
 
 fun main() {
@@ -21,31 +20,8 @@ fun main() {
         }
     }
 
-    fun firstDigit(line: String): Int {
-        for (i in line.indices) {
-            val sub = line.substring(i)
-            val digit = when {
-                sub.first().isDigit() -> sub.first().toString().toInt()
-                sub.startsWith("one") -> 1
-                sub.startsWith("two") -> 2
-                sub.startsWith("three") -> 3
-                sub.startsWith("four") -> 4
-                sub.startsWith("five") -> 5
-                sub.startsWith("six") -> 6
-                sub.startsWith("seven") -> 7
-                sub.startsWith("eight") -> 8
-                sub.startsWith("nine") -> 9
-                else -> null
-            }
-            if (digit != null) {
-                return digit
-            }
-        }
-        throw RuntimeException("yikes")
-    }
-
-    fun lastDigit(line: String): Int {
-        for (i in line.indices.reversed()) {
+    fun firstDigit(line: String, indices: IntProgression): Int {
+        for (i in indices) {
             val sub = line.substring(i)
             val digit = when {
                 sub.first().isDigit() -> sub.first().toString().toInt()
@@ -75,7 +51,8 @@ fun main() {
 //        }
 
         return input.fold(0) { acc, line ->
-            acc + "${firstDigit(line)}${lastDigit(line)}".toInt()
+            val indices = line.indices
+            acc + "${firstDigit(line, indices)}${firstDigit(line, indices.reversed())}".toInt()
         }
     }
 
