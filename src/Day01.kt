@@ -1,16 +1,5 @@
 import java.lang.RuntimeException
 
-val COLOR_GREEN = "\u001B[0;32m"
-val COLOR_RED = "\u001B[0;31m"
-val COLOR_RESET = "\u001B[0m"
-
-
-fun verify(msg: String, a: Int, b: Int):Unit {
-    val output = if (a==b) "$msg\n    ${COLOR_GREEN}$a == $b — OK ${COLOR_RESET}"
-        else "$msg\n    ${COLOR_RED}$a != $b — FAIL ${COLOR_RESET}"
-    println(output)
-}
-
 fun main() {
     val _day_ = "01"
     fun log(message: Any?) {
