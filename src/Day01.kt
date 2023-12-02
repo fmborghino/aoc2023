@@ -1,5 +1,16 @@
 import java.lang.RuntimeException
 
+val COLOR_GREEN = "\u001B[0;32m"
+val COLOR_RED = "\u001B[0;31m"
+val COLOR_RESET = "\u001B[0m"
+
+
+fun verify(msg: String, a: Int, b: Int):Unit {
+    val output = if (a==b) "$msg\n    ${COLOR_GREEN}$a == $b — OK ${COLOR_RESET}"
+        else "$msg\n    ${COLOR_RED}$a != $b — FAIL ${COLOR_RESET}"
+    println(output)
+}
+
 fun main() {
     val _day_ = "01"
     fun log(message: Any?) {
@@ -61,7 +72,12 @@ fun main() {
 
     // test part 1
     val test1 = part1(testInput)
-    check(test1 == 142) { "!!! test part 1 failed with: $test1" }
+//    check(test1 == 142) { "!!! test part 1 failed with: $test1" }
+    verify("Test part 1", test1, 142)
+
+    // Winston's part 1:
+    val ww_part1  = part1(readInput("Day01_part1_ww.txt"))
+    verify("winston's part 1", ww_part1, 55208)
 
     // game inputs
     val gameInput = readInput("Day${_day_}.txt")
@@ -69,15 +85,20 @@ fun main() {
     // game part 1
     val game1 = part1(gameInput)
     println("*** game part 1: $game1")
-    check(game1 == 56049) { "!!! game part 1 failed with: $game1" }
+    verify("Max Game part 1", game1, 56049)
+//    check(game1 == 56049) { "!!! game part 1 failed with: $game1" }
 
     // test part 2
     val testInput2 = readInput("Day${_day_}_part2_test.txt")
     val test2 = part2(testInput2)
-    check(test2 == 281) { "!!! test part 2 failed with: $test2" }
+    verify("Test part 2", test2 , 281)
 
     // game part 2
     val game2 = part2(gameInput)
     println("*** game part 2: $game2")
-    check(game2 == 54530) { "!!! game part 2 failed with: $game2" }
+    verify("Max Game part 2", game2, 54530)
+
+    // Winston's part 2:
+    val ww_part2 = part2(readInput("Day01_part2_ww.txt"))
+    verify("winston's part 2", ww_part2, 54578)
 }
