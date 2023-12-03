@@ -24,11 +24,8 @@ fun part1(lines: List<String>):Int {
     (3) sum the game IDs.
 */
 
-
-
    return 0
 }
 fun main() {
-    val test_part1  = part1(readInput("Day02_test1.txt"))
-    verify("Test part 1", test_part1, 8)
+    verify("Test part 1", part1(readInput("test/Day02.txt")), 8)
 }

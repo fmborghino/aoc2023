@@ -1,38 +1,27 @@
+import java.lang.RuntimeException
+
 fun main() {
-    val _day_ = "NN"
     fun log(message: Any?) {
 //        println(message)
     }
 
     fun part1(input: List<String>): Int {
-        return input.first().toInt()
+        return -1
     }
 
     fun part2(input: List<String>): Int {
-        return input.first().toInt()
+        return -2
     }
 
-    // test inputs
-    val testInput = readInput("Day${_day_}_test.txt")
+    verify("Test part 1", part1(readInput("test/DayNN_part1.txt")), 999)
 
-    // test part 1
-    val test1 = part1(testInput)
-    check(test1 == 111111) { "!!! test part 1 failed with: $test1" }
+    verify("Winston part 1", part1(readInput("ww/DayNN.txt")), 999)
 
-    // game inputs
-    val gameInput = readInput("Day${_day_}.txt")
+    verify("Max part 1", part1(readInput("mb/DayNN.txt")), 999)
 
-    // game part 1
-    val game1 = part1(gameInput)
-    println("*** game part 1: $game1")
-    check(game1 == 222222) { "!!! game part 1 failed with: $game1" }
+    verify("Test part 2", part2(readInput("test/DayNN.txt")) , 999)
 
-    // test part 2
-    val test2 = part2(testInput)
-    check(test2 == 111111) { "!!! test part 2 failed with: $test2" }
+    verify("Winston part 2", part2(readInput("ww/DayNN.txt")), 999)
 
-    // game part 2
-    val game2 = part2(gameInput)
-    println("*** game part 2: $game2")
-    check(game2 == 222222) { "!!! game part 2 failed with: $game2" }
+    verify("Max part 2", part2(readInput("mb/DayNN.txt")), 999)
 }

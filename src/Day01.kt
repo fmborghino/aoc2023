@@ -1,19 +1,11 @@
 import java.lang.RuntimeException
 
 fun main() {
-    val _day_ = "01"
     fun log(message: Any?) {
         println(message)
     }
 
     fun part1(input: List<String>): Int {
-//        var total = 0
-//        input.forEach { line ->
-//            val digitsOnly = line.filter { it.isDigit() }
-//            total += "${digitsOnly.first()}${digitsOnly.last()}".toInt()
-//        }
-//        return total
-
         return input.fold(0) { acc, line ->
             val digitsOnly = line.filter { it.isDigit() }
             acc + "${digitsOnly.first()}${digitsOnly.last()}".toInt()
@@ -44,50 +36,21 @@ fun main() {
     }
 
     fun part2(input: List<String>): Int {
-//        input.forEach { line ->
-//            log(firstDigit(line))
-//            log(lastDigit(line))
-//            log("---")
-//        }
-
         return input.fold(0) { acc, line ->
             val indices = line.indices
             acc + "${firstDigit(line, indices)}${firstDigit(line, indices.reversed())}".toInt()
         }
     }
 
-    // test inputs
-    val testInput = readInput("Day${_day_}_test.txt")
+    verify("Test part 1", part1(readInput("test/Day01_part1.txt")), 142)
 
-    // test part 1
-    val test1 = part1(testInput)
-//    check(test1 == 142) { "!!! test part 1 failed with: $test1" }
-    verify("Test part 1", test1, 142)
+    verify("Winston part 1", part1(readInput("ww/Day01.txt")), 55208)
 
-    // Winston's part 1:
-    val ww_part1  = part1(readInput("Day01_part1_ww.txt"))
-    verify("winston's part 1", ww_part1, 55208)
+    verify("Max part 1", part1(readInput("mb/Day01.txt")), 56049)
 
-    // game inputs
-    val gameInput = readInput("Day${_day_}.txt")
+    verify("Test part 2", part2(readInput("test/Day01_part2.txt")) , 281)
 
-    // game part 1
-    val game1 = part1(gameInput)
-    println("*** game part 1: $game1")
-    verify("Max Game part 1", game1, 56049)
-//    check(game1 == 56049) { "!!! game part 1 failed with: $game1" }
+    verify("Winston part 2", part2(readInput("ww/Day01.txt")), 54578)
 
-    // test part 2
-    val testInput2 = readInput("Day${_day_}_part2_test.txt")
-    val test2 = part2(testInput2)
-    verify("Test part 2", test2 , 281)
-
-    // game part 2
-    val game2 = part2(gameInput)
-    println("*** game part 2: $game2")
-    verify("Max Game part 2", game2, 54530)
-
-    // Winston's part 2:
-    val ww_part2 = part2(readInput("Day01_part2_ww.txt"))
-    verify("winston's part 2", ww_part2, 54578)
+    verify("Max part 2", part2(readInput("mb/Day01.txt")), 54530)
 }
