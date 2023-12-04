@@ -2,7 +2,7 @@ import java.lang.RuntimeException
 
 fun main() {
     fun log(message: Any?) {
-//        println(message)
+        println(message)
     }
 
     fun part1(input: List<String>): Int {
@@ -13,7 +13,8 @@ fun main() {
         return -2
     }
 
-    verify("Test part 1", part1(readInput("test/DayNN_part1.txt")), 999)
+    verify("Test part 1", part1(readInput("test/DayNN.txt")), 999)
+
 
     verify("Winston part 1", part1(readInput("ww/DayNN.txt")), 999)
 

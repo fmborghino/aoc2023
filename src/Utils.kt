@@ -27,6 +27,10 @@ val COLOR_RED = "\u001B[0;31m"
 val COLOR_YELLOW = "\u001B[0;33m"
 val COLOR_RESET = "\u001B[0m"
 fun verify(msg: String, actual: Int, expected: Int):Unit {
+    verify(msg, actual.toLong(), expected.toLong())
+}
+
+fun verify(msg: String, actual: Long, expected: Long):Unit {
     val output = if (actual == expected) "$msg\n    ${COLOR_GREEN}$actual == $expected — OK ${COLOR_RESET}"
     else "$msg\n    ${COLOR_RED}$actual != $expected — FAIL ${COLOR_RESET}"
     println(output)
