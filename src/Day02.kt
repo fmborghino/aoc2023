@@ -1,10 +1,3 @@
-data class Pick(val red: Int, val green: Int, val blue: Int) // this could just be a map
-data class Game(val id: Int, val picks: List<Pick>)
-
-fun log(message: Any?) {
-    println(message)
-}
-
 /*
     (1) Parse file of Games that looks like:
         Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green
@@ -29,15 +22,9 @@ fun log(message: Any?) {
 
     (3) sum the game IDs.
 */
-fun part1(lines: List<String>, given: Pick):Int {
-    val games: List<Game> = lines.map { Game(it) }
-    val filteredGames = games.filter { game ->
-        game.picks.all { pick -> pick.red <= given.red } &&
-                game.picks.all { pick -> pick.green <= given.green } &&
-                game.picks.all { pick -> pick.blue <= given.blue }
-    }
-    return filteredGames.sumOf { it.id }
-}
+
+data class Pick(val red: Int, val green: Int, val blue: Int) // this could just be a map
+data class Game(val id: Int, val picks: List<Pick>)
 
 fun Game(line: String): Game {
     // parse a line like this to get a Game
@@ -68,24 +55,34 @@ fun Pick(pick: String): Pick {
     return Pick(red, green, blue)
 }
 
-/*
- * for each Game(val id: Int, val picks: List<Pick>)
- * find the maximum red, green, blue from the list of Pick
- * then do the math for the result
- */
-fun part2(lines: List<String>): Int {
-    val games: List<Game> = lines.map { Game(it) }
-    val maxPicks = games.map { game ->
-        val maxRed = game.picks.maxByOrNull { it.red }
-        val maxGreen = game.picks.maxByOrNull { it.green }
-        val maxBlue = game.picks.maxByOrNull { it.blue }
-        Pick(maxRed?.red ?: 1, maxGreen?.green ?: 1, maxBlue?.blue ?: 1)
-    }
-    val powers = maxPicks.map { it.red * it.green * it.blue }
-    return powers.sum()
-}
-
 fun main() {
+    fun part1(lines: List<String>, given: Pick):Int {
+        val games: List<Game> = lines.map { Game(it) }
+        val filteredGames = games.filter { game ->
+            game.picks.all { pick -> pick.red <= given.red } &&
+                    game.picks.all { pick -> pick.green <= given.green } &&
+                    game.picks.all { pick -> pick.blue <= given.blue }
+        }
+        return filteredGames.sumOf { it.id }
+    }
+
+    /*
+     * for each Game(val id: Int, val picks: List<Pick>)
+     * find the maximum red, green, blue from the list of Pick
+     * then do the math for the result
+     */
+    fun part2(lines: List<String>): Int {
+        val games: List<Game> = lines.map { Game(it) }
+        val maxPicks = games.map { game ->
+            val maxRed = game.picks.maxByOrNull { it.red }
+            val maxGreen = game.picks.maxByOrNull { it.green }
+            val maxBlue = game.picks.maxByOrNull { it.blue }
+            Pick(maxRed?.red ?: 1, maxGreen?.green ?: 1, maxBlue?.blue ?: 1)
+        }
+        val powers = maxPicks.map { it.red * it.green * it.blue }
+        return powers.sum()
+    }
+
     val given = Pick(12, 13, 14)
     verify("Test part 1", part1(readInput("test/Day02.txt"), given), 8)
 
