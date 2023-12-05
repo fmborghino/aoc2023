@@ -1,5 +1,3 @@
-import java.lang.RuntimeException
-
 fun main() {
     fun log(message: Any?) {
         println(message)
