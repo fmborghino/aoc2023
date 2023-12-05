@@ -33,6 +33,22 @@ fun main() {
         return locations.minOrNull() ?: -1L
     }
 
+    fun findMinLocationFromRanges(seedRanges: List<LongRange>, mappers: MutableList<Mapper>): Long {
+        var minLocation: Long = Long.MAX_VALUE
+        seedRanges.forEach { range ->
+            range.forEach { seed ->
+                var r = seed
+//            log("seed $seed")
+                mappers.forEach { mapper ->
+//                log("mapper ${mapper.name}")
+                    r = mapper.map(r)
+                }
+                if (r < minLocation) minLocation = r
+            }
+        }
+        return minLocation
+    }
+
     fun parseInput(input: List<String>): Pair<List<Long>, MutableList<Mapper>> {
         var seeds: List<Long> = emptyList()
         var stepNum = -1
@@ -56,9 +72,18 @@ fun main() {
         return Pair(seeds, mappers)
     }
 
+    // hm yeah this leads to an OOME with game data
+    // change List of range-y pairs into the expanded list... eek
     fun expandRanges(seeds: List<Long>): List<Long> {
         return buildList<Long> {
             seeds.chunked(2) { r -> addAll(r[0].rangeTo(r[0]+r[1])) }
+        }.toList()
+    }
+
+    // make a list of Range, don't expand the values
+    fun assembleRanges(seeds: List<Long>): List<LongRange> {
+        return buildList<LongRange> {
+            seeds.chunked(2) { r -> add(r[0].rangeTo(r[0]+r[1])) }
         }.toList()
     }
 
@@ -69,9 +94,9 @@ fun main() {
 
     fun part2(input: List<String>): Long {
         val (seeds: List<Long>, mappers) = parseInput(input)
-        val moreSeeds = expandRanges(seeds)
-        log("count of moreSeeds ${moreSeeds.size}")
-        return findMinLocation(moreSeeds, mappers)
+        val seedRanges = assembleRanges(seeds)
+        log("seedRanges $seedRanges")
+        return findMinLocationFromRanges(seedRanges, mappers)
     }
 
     verify("Test part 1", part1(readInput("test/Day05.txt")), 35)
@@ -84,5 +109,7 @@ fun main() {
 
 //    verify("Winston part 2", part2(readInput("ww/Day05.txt")), 999)
 
-    verify("Max part 2", part2(readInput("mb/Day05.txt")), 999)
+    // long run time, on my Mac around 10 min
+    // probably should calculate and exclude duplicated sub-ranges
+    verify("Max part 2", part2(readInput("mb/Day05.txt")), 78775051)
 }
