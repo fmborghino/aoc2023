@@ -25,7 +25,7 @@ fun main() {
     ): Long {
         var step = 0L
         var key = keyInit
-//        log("start key $key")
+//        log("start key $key ${isDone(key)}")
         while (!isDone(key)) {
             val direction = directions[step.toInt() % directions.length]
             key = map[key]!!.let { if (direction == 'L') it.first else it.second }
@@ -37,7 +37,7 @@ fun main() {
 
     fun part1(input: List<String>): Long {
         val (directions, map) = parse(input)
-        return followDirections(directions, map, "AAA") { s -> s != "ZZZ"}
+        return followDirections(directions, map, "AAA") { s -> s == "ZZZ"}
     }
 
     fun gcd(a: Long, b: Long): Long = if (b == 0L) a else gcd(b, a % b)
@@ -65,5 +65,5 @@ fun main() {
 
 //    verify("Winston part 2", part2(readInput("ww/Day08.txt")), 999)
 
-    verify("Max part 2", part2(readInput("mb/Day08.txt")), 999)
+    verify("Max part 2", part2(readInput("mb/Day08.txt")), 12357789728873)
 }
