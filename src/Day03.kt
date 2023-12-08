@@ -8,7 +8,7 @@
 
 import kotlin.system.exitProcess
 
-class Schematic(val cells: List<String>) {
+private class Schematic(val cells: List<String>) {
     fun width() = cells[0].length
 
     fun length() = cells.size
@@ -45,18 +45,18 @@ class Schematic(val cells: List<String>) {
     }
 }
 
-data class Rect(val top: Int, val left: Int, val bottom:Int, val right:Int, val number: Int)
-data class BorderedNumber(val number: Int, val border: List<Pair<Int, Int>>)
+private data class Rect(val top: Int, val left: Int, val bottom:Int, val right:Int, val number: Int)
+private data class BorderedNumber(val number: Int, val border: List<Pair<Int, Int>>)
 
 // kinda cheated to find all the non numeric and non dot chars in the input...
 // cat data/mb/Day03.txt | grep -o . | sort -u | egrep -v '\d|\.' | tr -d '\n' && echo
 // #$%&*+-/=@
-val symbols = "#$%&*+-/=@".map { it.toString() }
-val nonDigits = symbols + "."
-val onlyStar = listOf("*")
+private val symbols = "#$%&*+-/=@".map { it.toString() }
+private val nonDigits = symbols + "."
+private val onlyStar = listOf("*")
 
 // find corners of the rectangle surrounding part number which starts at (row, col)
-fun Rect(schematic: Schematic, row: Int, col:Int): Rect {
+private fun Rect(schematic: Schematic, row: Int, col:Int): Rect {
     val rowStr = schematic.cells[row]
     var lastCol = rowStr.indexOfAny(nonDigits, col)
     if (lastCol == -1) lastCol = schematic.width()
@@ -68,7 +68,7 @@ fun Rect(schematic: Schematic, row: Int, col:Int): Rect {
 
 // find the number which starts at (row, col) and the list of bordering coordinates
 // omit coords that are outside the schematic boundaries
-fun BorderedNumber(schematic: Schematic, row: Int, col: Int): BorderedNumber {
+private fun BorderedNumber(schematic: Schematic, row: Int, col: Int): BorderedNumber {
     val rowStr = schematic.cells[row]
     var lastCol = rowStr.indexOfAny(nonDigits, col)
     if (lastCol == -1) lastCol = schematic.width()

@@ -23,10 +23,10 @@
     (3) sum the game IDs.
 */
 
-data class Pick(val red: Int, val green: Int, val blue: Int) // this could just be a map
-data class Game(val id: Int, val picks: List<Pick>)
+private data class Pick(val red: Int, val green: Int, val blue: Int) // this could just be a map
+private data class Game(val id: Int, val picks: List<Pick>)
 
-fun Game(line: String): Game {
+private fun Game(line: String): Game {
     // parse a line like this to get a Game
     // Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green
     val parts = line.split(":")
@@ -35,7 +35,7 @@ fun Game(line: String): Game {
     return Game(gameId, picks)
 }
 
-fun Pick(pick: String): Pick {
+private fun Pick(pick: String): Pick {
     // parse line like this to get a Pick
     // 1 red, 2 green, 6 blue
     // missing color means 0
