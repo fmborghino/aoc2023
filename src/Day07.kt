@@ -18,28 +18,39 @@ private data class Hand(val s: String, val hand: List<Int>, val groupings: List<
 
 fun main() {
 
-    fun part1(input: List<String>): Long {
-        input
-            .map { Hand.of(it).also(::log) }
-            .sortedBy { it.groupings.size } // TODO: yeah the secret sauce is gonna be here
-            .reversed()
-            .also { log("---") }
-            .map { it.also(::log) }
-
-        return -1
+    fun part1(input: List<String>): Int {
+        return input
+            .filter { it.trim().isNotEmpty() }
+            .map {
+                Hand.of(it)
+            }.sortedWith(compareBy(
+                { it.groupings[0] },
+                { it.groupings[1] },
+                { it.hand[0] },
+                { it.hand[1] },
+                { it.hand[2] },
+                { it.hand[3] },
+                { it.hand[4] },
+            ))
+//            .map { it.also(::log) }
+            .mapIndexed { index, hand ->
+//                log("${index+1} ${hand.bet} = ${(index+1)*hand.bet}")
+                (index + 1) * hand.bet
+            }
+            .sum()
     }
 
     fun part2(input: List<String>): Int {
         return -2
     }
 
-    verify("Test part 1", part1(readInput("test/Day07.txt")), 6440L)
+    verify("Test part 1", part1(readInput("test/Day07.txt")), 6440)
 
 //    verify("Winston part 1", part1(readInput("ww/Day07.txt")), 999)
 
-//    verify("Max part 1", part1(readInput("mb/Day07.txt")), 999)
+    verify("Max part 1", part1(readInput("mb/Day07.txt")), 251927063)
 
-//    verify("Test part 2", part2(readInput("test/Day07.txt")) , 999)
+//    verify("Test part 2", part2(readInput("test/Day07.txt")) , 5905)
 
 //    verify("Winston part 2", part2(readInput("ww/Day07.txt")), 999)
 
